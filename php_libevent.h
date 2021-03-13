@@ -27,8 +27,14 @@
 extern zend_module_entry libevent_module_entry;
 #define phpext_libevent_ptr &libevent_module_entry
 
-#ifdef ZTS
 #include "TSRM.h"
+
+/*
+ * Removed from PHP8.
+ */
+#if PHP_VERSION_ID >= 80000
+#  define TSRMLS_FETCH_FROM_CTX(ctx)
+#  define TSRMLS_SET_CTX(ctx)
 #endif
 
 #ifndef zend_always_inline

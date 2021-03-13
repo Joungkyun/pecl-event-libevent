@@ -376,7 +376,7 @@ static PHP_FUNCTION(event_base_reinit) {
 
     r = event_reinit(base->base);
     if (r == -1) {
-        RETURN_FALSE
+        RETURN_FALSE;
     } else {
         RETURN_TRUE;
     }
@@ -683,7 +683,7 @@ static PHP_FUNCTION(event_set)
 	} else {
 
 		if (Z_TYPE_P(fd) == IS_LONG) {
-			fd = zend_hash_index_find(&EG(regular_list), Z_RES_P(fd));
+			fd = zend_hash_index_find(&EG(regular_list), (zend_ulong) Z_RES_P(fd));
 			if (!fd) {
 				php_error_docref(NULL, E_WARNING, "invalid file descriptor passed");
 				RETURN_FALSE;
@@ -922,7 +922,7 @@ static PHP_FUNCTION(event_buffer_new)
 	}
 
 	if (Z_TYPE_P(zfd) == IS_LONG) {
-		zfd = zend_hash_index_find(&EG(regular_list), Z_RES_P(zfd));
+		zfd = zend_hash_index_find(&EG(regular_list), (zend_ulong) Z_RES_P(zfd));
 		if (!zfd) {
 			php_error_docref(NULL, E_WARNING, "invalid file descriptor passed");
 			RETURN_FALSE;
@@ -1298,7 +1298,7 @@ static PHP_FUNCTION(event_buffer_fd_set)
 		RETURN_FALSE;
 
 	if (Z_TYPE_P(zfd) == IS_LONG) {
-		zfd = zend_hash_index_find(&EG(regular_list), Z_RES_P(zfd));
+		zfd = zend_hash_index_find(&EG(regular_list), (zend_ulong) Z_RES_P(zfd));
 		if (!zfd) {
 			php_error_docref(NULL, E_WARNING, "invalid file descriptor passed");
 			RETURN_FALSE;
